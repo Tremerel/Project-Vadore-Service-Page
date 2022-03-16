@@ -1,22 +1,3 @@
-const width = window.innerWidth;
-const height = window.innerHeight;
-
-var pageWidth = function () {
-    return width != null? width : document.documentElement && document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body != null ? document.body.clientWidth : null;
-}
-var pageHeight = function () {
-    return height != null? height : document.documentElement && document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body != null ? document.body.clientHeight : null;
-}
- console.log(pageWidth());
- console.log(pageHeight());
-
- var x =  Math.round(Math.random() * (((pageWidth()/2) - pageWidth()), pageWidth()/2) + 0);
- var y =  Math.round(Math.random() * (0, pageHeight()) + 0);
- var deg = Math.round(Math.random() * (-45, 45) + 0);
-
- console.log(x)
- console.log(y)
- console.log(deg)
 
 $(document).ready(function(){
     $(".name, .studio, .small-intro").lettering();
@@ -27,34 +8,25 @@ $(document).ready(function(){
         opacity: 1,
         duration: 3000,
     })
-    anime({
-        targets: '.card-container',
-        opacity: 1,
-        keyframes: [
-            {translateX: x,
-             translateY: y,
-             rotate: deg,
-             duration: 1500
-            }
-        ],
-        duration: 3000,
-        delay: 2000
-    })
+
+    // Card
     anime({
         targets: '.card',
-        keyframes: [
-            {translateX: -105, duration: 1500}
-        ],
-        easing: 'easeInOutExpo',
-        delay: 3000
+        opacity: 1,
+        scale: 0.9,
+        rotate: function() { return anime.random(10, -15); },
+        easing: 'easeInOutQuad',
+        translateX: [-1000,0],
+        duration: 3000,
+        delay: anime.stagger(800, {start:2000}),
     })
     anime({
         targets: '.disk-container img',
-        keyframes: [
-            {translateX: 155, duration: 1500}
-        ],
-        easing: 'easeInOutExpo',
-        delay: 3000
+        opacity: 1,
+        rotate: function() { return anime.random(-10, 20); },
+        easing: 'easeInOutQuad',
+        duration: 3000,
+        delay: anime.stagger(800, {start:0}),
     })
 
     // Menu 
@@ -66,3 +38,36 @@ $(document).ready(function(){
     })
 
 })
+
+// var buttonEl = document.querySelector('.card');
+// var textEl = document.querySelector('.hidden-content');
+
+// function animateButton(scale, duration, elasticity) {
+//   anime.remove(buttonEl);
+//   anime({
+//     targets: buttonEl,
+//     scale: scale,
+//     duration: duration,
+//     elasticity: elasticity
+//   });
+// }
+
+// function animateText(translateX) {
+//   anime.remove(textEl);
+//   anime({
+//     targets: textEl,
+//     translateY: translateX,
+//     elasticity: 300
+//   });
+// }
+
+// function enterButton() { animateButton(1.2, 800, 400) };
+// function leaveButton() { animateButton(1.0, 600, 300) };
+
+// function enterText() { animateText(-70) };
+// function leaveText() { animateText(0) };
+
+// buttonEl.addEventListener('mouseenter', enterButton, false);
+// buttonEl.addEventListener('mouseleave', leaveButton, false);
+// buttonEl.addEventListener('mouseenter', enterText, false);
+// buttonEl.addEventListener('mouseleave', leaveText, false);
