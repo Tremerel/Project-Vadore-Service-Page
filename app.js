@@ -23,7 +23,7 @@ $(document).ready(function(){
     anime({
         targets: '.disk-container img',
         opacity: 1,
-        rotate: function() { return anime.random(-10, 20); },
+        rotate: function() { return anime.random(-10, 10); },
         easing: 'easeInOutQuad',
         duration: 3000,
         delay: anime.stagger(800, {start:0}),
@@ -37,37 +37,44 @@ $(document).ready(function(){
         delay: anime.stagger(150, {start:1500})
     })
 
+    let cards = document.querySelectorAll('.card-container');
+    
+    cards.forEach((card) => {
+        card.addEventListener('mouseenter', (event) => {
+            anime.remove(card.querySelector(".card"));
+            anime.remove(card.querySelector(".disk-container"));
+
+            anime({
+                targets: card.querySelector('.card'),
+                easing: 'easeOutExpo',
+                translateX: -100,
+                duration: 1000
+            })
+            anime({
+                targets: card.querySelector('.disk-container'),
+                easing: 'easeOutExpo',
+                translateX: 50,
+                duration: 1000
+            })
+        })
+
+        card.addEventListener('mouseleave', (event) => {
+            anime.remove(card.querySelector(".card"));
+            anime.remove(card.querySelector(".disk-container"));
+
+            anime({
+                targets: card.querySelector('.card'),
+                easing: 'easeOutExpo',
+                translateX: 0,
+                duration: 1000
+            })
+            anime({
+                targets: card.querySelector('.disk-container'),
+                easing: 'easeOutExpo',
+                translateX: 0,
+                duration: 1000
+            })
+        })
+    })
+
 })
-
-// var buttonEl = document.querySelector('.card');
-// var textEl = document.querySelector('.hidden-content');
-
-// function animateButton(scale, duration, elasticity) {
-//   anime.remove(buttonEl);
-//   anime({
-//     targets: buttonEl,
-//     scale: scale,
-//     duration: duration,
-//     elasticity: elasticity
-//   });
-// }
-
-// function animateText(translateX) {
-//   anime.remove(textEl);
-//   anime({
-//     targets: textEl,
-//     translateY: translateX,
-//     elasticity: 300
-//   });
-// }
-
-// function enterButton() { animateButton(1.2, 800, 400) };
-// function leaveButton() { animateButton(1.0, 600, 300) };
-
-// function enterText() { animateText(-70) };
-// function leaveText() { animateText(0) };
-
-// buttonEl.addEventListener('mouseenter', enterButton, false);
-// buttonEl.addEventListener('mouseleave', leaveButton, false);
-// buttonEl.addEventListener('mouseenter', enterText, false);
-// buttonEl.addEventListener('mouseleave', leaveText, false);
